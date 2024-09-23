@@ -20,7 +20,7 @@
   {%- endif %}
   {%- if page.paginator.current|default(0) > 1 %}
     {%- if title_pagination_shownumber %}
-      {%- set title = page.title|e ~ title_divider ~ title_pagination_label|format(page.paginator.current) %}
+      {%- set title = title ~ title_divider ~ title_pagination_label|format(page.paginator.current) %}
       {%- set title_html = title ~ title_divider ~ site.title|e %}
       {%- if title_only %}
         {%- set title_html = title %}
