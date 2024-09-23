@@ -1,0 +1,6 @@
+pages:
+    highlight:
+        enabled: true
+
+pagination:
+    enabled: false

@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+
+@layer base {
+    h1 {
+        @apply text-4xl font-bold mb-4 tracking-tight text-gray-800;
+    }
+
+    h2 {
+        @apply text-3xl font-bold mb-4 tracking-tight text-gray-800;
+    }
+
+    h3 {
+        @apply text-2xl font-bold mb-4 tracking-tight text-gray-800;
+    }
+
+    h4 {
+        @apply text-xl font-bold mb-4 tracking-tight text-gray-800;
+    }
+}
+
+/**
+ * Components
+ * These styles can be overridden by Utility classes.
+ * These styles will only be included in the compiled CSS if they are actually used in the files specified in the
+ * `content` list in tailwind.config.js.
+ */
+@layer components {
+
+}
+
+/**
+ * Vendor and other special-purposed CSS
+ * These styles can be overridden by Utility classes.
+ * These styles are outside of any @layer so they will always be included in the compiled CSS.
+ */
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-repeat: repeat round;
+    background-attachment: fixed;
+    background-image: url('../concrete.avif');
+    mix-blend-mode: multiply;
+    opacity: 0.75;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.no-overlay {
+    position: relative;
+    z-index: 20;
+}
+
+/**
+ * Utilities
+ * These can override anything come before them.
+ */
+@tailwind utilities;
+@layer utilities {
+}

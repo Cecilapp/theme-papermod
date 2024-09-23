@@ -1,0 +1,39 @@
+{% extends '_default/page.html.twig' %}
+
+{% block content %}
+    <section>
+        <a href="{{ site.menus.main.posts|url }}"aria-label="Retourner à la liste des publications"
+           class="group mb-8 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md shadow-gray-800/5 ring-1 ring-gray-900/5 transition">
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="h-4 w-4 stroke-gray-500 transition group-hover:stroke-teal-700">
+                <path d="M7.25 11.25 3.75 8m0 0 3.5-3.25M3.75 8h8.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+        </a>
+
+        <article class="mt-16">
+            <header class="flex flex-col">
+                <h1 class="mt-6 text-3xl">{{ page.title }}</h1>
+                <time class="order-first flex items-center text-base text-gray-400" dateTime="{{ page.date|date('Y-m-d') }}">
+                    <span class="h-4 w-0.5 rounded-full bg-gray-200"></span>
+                    <span class="ml-3">{{ page.date|format_date('long') }}</span>
+                </time>
+            </header>
+            <div class="mt-8 prose text-lg text-gray-800">
+                {{ page.content }}
+            </div>
+        </article>
+    </section>
+{% endblock %}
+
+{% block js_footer %}
+    {% if page.highlightjs|default('false') == true %}
+    <script type="module">
+        {% apply minify_js %}
+        import hljs from '{{ asset('js/highlightjs/highlight.min.js') }}';
+        import css from '{{ asset('js/highlightjs/languages/css.min.js') }}';
+
+        hljs.registerLanguage('css', css);
+        hljs.highlightAll();
+        {% endapply %}
+    </script>
+    {% endif %}
+{% endblock %}

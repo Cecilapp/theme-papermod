@@ -1,0 +1,25 @@
+{% extends '_default/page.html.twig' %}
+
+{% block content %}
+<section class="prose grid grid-cols-1 gap-y-16 lg:grid-cols-2 lg:gap-y-12">
+    <div class="md::row-span-2">
+        <h2>{{ page.page_title }}</h2>
+        <div class="mt-6 text-lg">{{ page.content }}</div>
+    </div>
+    <div class="not-prose md:pl-20 md:mt-32">
+        {{ asset('images/about.jpg')|html({alt: 'Photo de profil'|trans, class: 'px-2.5 aspect-square rotate-3 rounded-2xl bg-gray-100 object-cover transparent'}) }}
+        <ul role="list" class="mt-16 list-none">
+            {% for element in site.data.links is defined %}
+                <li class="mt-4">
+                    <a class="group flex items-center justify-start font-medium text-gray-800 transition hover:text-teal-500" href="{{ element.href }}">
+                        <svg viewBox="0 0 24 24" aria-hidden="true" class="h-6 w-6 flex-none fill-gray-500 transition group-hover:fill-teal-500">
+                            {{ asset(element.picto)|inline }}
+                        </svg>
+                        <span class="ml-4">{{ element.title|trans }}</span>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</section>
+{% endblock %}

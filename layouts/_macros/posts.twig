@@ -1,0 +1,27 @@
+{% macro post_card(post) %}
+    <article class="flex flex-col gap-y-4 auto-rows-min p-4 bg-white/80 border border-gray-300 border-l-red-500 border-l-2 rounded-md">
+        <header>
+            <h3 class="text-2xl font-semibold underline underline-offset-4">
+                {{ post.title|e }}
+            </h3>
+        </header>
+        <section>
+            {{ post.content|excerpt_html }}
+        </section>
+        <footer class="flex gap-x-6 justify-start items-center place-self-start">
+            <time class="flex items-center gap-x-2 text-sm text-gray-600" dateTime="{{ post.date|date('Y-m-d') }}">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 hidden sm:block">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
+                </svg>
+                {{ post.date|date }}
+            </time>
+            <span class="text-sm text-gray-600">{{ readtime(post.content) }} min</span>
+            <span class="inline-flex items-center gap-x-1.5 rounded-full px-2 py-1 text-xs font-medium text-gray-900 ring-1 ring-inset ring-gray-200">
+                <svg class="h-1.5 w-1.5 fill-red-500" viewBox="0 0 6 6" aria-hidden="true">
+                    <circle cx="3" cy="3" r="3" />
+                </svg>
+                {{ post.tags|first }}
+            </span>
+        </footer>
+    </article>
+{% endmacro %}

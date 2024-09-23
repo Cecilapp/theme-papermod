@@ -1,0 +1,18 @@
+{
+  "name": "papermod",
+  "private": true,
+  "scripts": {
+    "dev": "npx tailwindcss -i assets/styles/main.css -o assets/styles/build.css",
+    "watch": "npx tailwindcss -i assets/styles/main.css -o assets/styles/build.css --watch",
+    "build": "npx tailwindcss -i assets/styles/main.css -o assets/styles/build.css --minify"
+  },
+  "dependencies": {
+    "@tailwindcss/typography": "^0.5",
+    "autoprefixer": "^10.4",
+    "tailwindcss": "^3.4"
+  },
+  "devDependencies": {
+    "prettier": "^3.3",
+    "prettier-plugin-tailwindcss": "^0.6"
+  }
+}
