@@ -13,14 +13,17 @@
             {{ page.content }}
         </div>
 
-        <div class="flex justify-start space-x-4 mt-8 text-gray-700">
-            <img src="https://www.svgrepo.com/show/504388/github.svg" alt="GitHub" class="h-8">
-            <img src="https://www.svgrepo.com/show/504546/linkedin.svg" alt="LinkedIn" class="h-8">
+        {% if site.data.links is defined and site.data.links|length > 0 %}
+        <div class="flex justify-start items-center gap-x-4 mt-8 text-gray-700">
+            {% for link in site.data.links %}
+            <a href="{{ link.href }}" title="{{ link.title }}">{{ asset(link.picto)|html(attributes={class: 'size-8', alt: link.alt}) }}</a>
+            {% endfor %}
         </div>
+        {% endif %}
     </section>
 
-    <section class="mt-24 flex flex-col space-y-8">
-        <h2 class="text-2xl mb-10 border-b">Derniers articles</h2>
+    <section class="mt-24 flex flex-col space-y-6">
+        <h2 class="text-2xl border-b">Derniers articles</h2>
 
         <section class="flex flex-col space-y-4">
             {%- for post in posts|slice(0, 5) %}
