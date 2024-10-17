@@ -12,3 +12,5 @@ pagination:
 paths:
     -   section: posts
         path: :section/:year/:month/:day-:slug
+
+analytics: false

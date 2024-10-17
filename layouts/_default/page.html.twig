@@ -10,6 +10,10 @@
             html_options: {preload: true}
         }]
     }) -}}
+
+    {% if site.analytics == true %}
+        {{- include('_partials/analytics.html.twig') -}}
+    {% endif %}
 </head>
 <body class="relative flex flex-col min-h-screen bg-white text-gray-800 p-4">
     <header class="container max-w-7xl mx-auto py-4 flex justify-between items-center">
