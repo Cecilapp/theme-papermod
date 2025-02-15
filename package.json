@@ -2,9 +2,9 @@
   "name": "papermod",
   "private": true,
   "scripts": {
-    "dev": "npx tailwindcss -i assets/styles/main.css -o assets/styles/build.css",
-    "watch": "npx tailwindcss -i assets/styles/main.css -o assets/styles/build.css --watch",
-    "build": "npx tailwindcss -i assets/styles/main.css -o assets/styles/build.css --minify"
+    "dev": "npx tailwindcss -i tailwind.css -o assets/styles/main.css",
+    "watch": "npx tailwindcss -i tailwind.css -o assets/styles/main.css --watch",
+    "build": "npx tailwindcss -i tailwind.css -o assets/styles/main.css --minify"
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.5",
