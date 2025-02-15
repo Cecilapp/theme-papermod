@@ -1,0 +1,20 @@
+{
+  "name": "cecil/theme-papermod",
+  "type": "cecil-theme",
+  "description": "Cecil theme PaperMod",
+  "keywords": ["Cecil", "theme"],
+  "license": "MIT",
+  "require": {
+    "cecil/theme-installer": "^1.0||^2.0"
+  },
+  "extra": {
+    "name": "papermod"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "config": {
+    "allow-plugins": {
+      "cecil/theme-installer": true
+    }
+  }
+}
