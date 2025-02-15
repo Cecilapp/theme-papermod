@@ -1,16 +1,12 @@
-layouts:
-    extensions:
-        PaperModExtension: Cecil\Renderer\Extension\PaperModExtension
-
-pages:
-    highlight:
-        enabled: true
-
-pagination:
-    enabled: false
-
-paths:
-    -   section: posts
-        path: :section/:year/:month/:day-:slug
-
 analytics: false
+pagination:
+  enabled: false
+pages:
+  highlight:
+    enabled: true
+paths:
+  - section: posts
+    path: :section/:year/:month/:day-:slug
+layouts:
+  extensions:
+    PaperModExtension: Cecil\Renderer\Extension\PaperModExtension
