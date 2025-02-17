@@ -1,3 +1,6 @@
+#avatar: images/avatar-white.jpg
+posts:
+  section: posts
 analytics: false
 pagination:
   enabled: false

@@ -1,22 +1,11 @@
-{% extends '_default/page.html.twig' %}
+{% extends '_default/list.html.twig' %}
 
-{% from '_macros/posts.twig' import post_card  %}
-
-{# all "showable pages by default #}
-{% set pages = site.pages.showable|filter_by('section', 'posts') %}
-{# in case of a list page, take its sub pages #}
-{% if page.pages is defined %}
-  {%- set pages = page.pages -%}
-{% endif %}
-{# in case of a paginated list page, take the paginator list pages #}
-{% if page.paginator.pages is defined %}
-    {%- set pages = page.paginator.pages -%}
-{% endif %}
+{% from 'macros/posts.twig' import post_card  %}
 
 {%- block content ~%}
 <section class="mb-20 prose">
   <h1 class="flex gap-x-2">
-    <span>{{ "Archives"|trans }}</span>
+    <span>{{ 'Archives'|trans }}</span>
     <a href="atom.xml">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
         <path stroke-linecap="round" stroke-linejoin="round" d="M12.75 19.5v-.75a7.5 7.5 0 0 0-7.5-7.5H4.5m0-6.75h.75c7.87 0 14.25 6.38 14.25 14.25v.75M6 18.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
@@ -27,7 +16,7 @@
     {{ page.content }}
   </div>
 </section>
-  {% for year, months in pages|sort_by({months: true, years: true}) %}
+  {%- for year, months in pages|sort_by({months: true, years: true}) ~%}
 <section class="flex flex-col {% if loop.last == false %}mb-12 pb-8 border-b border-gray-200{% endif %}">
   <h2 id="{{ year }}" class="flex flex-row items-center gap-x-2">
     <span>{{ year }}</span>
@@ -42,7 +31,7 @@
       </svg>
     </a>
   </h2>
-  {% for month, posts in months %}
+  {%- for month, posts in months ~%}
   <article class="grid grid-rows gap-y-4 items-center mt-10 sm:ml-10 md:grid-cols-[20%_80%] md:gap-y-0 md:ml-0">
     <h3 id="{{ year ~ '-' ~ month }}" class="mb-0 self-baseline flex flex-row items-center gap-x-2">
       <span>{{ (year ~ '-' ~ month ~ '-01')|date('F') }}</span>
@@ -58,7 +47,7 @@
       </a>
     </h3>
     <ul class="flex flex-col gap-y-4 sm:ml-10 md:ml-0 {% if loop.last == false %}pb-4 border-b border-gray-200{% endif %}">
-      {% for post in posts %}
+      {%- for post in posts ~%}
       <li class="flex flex-col gap-y-2 {% if loop.first == false %}mt-4 border-t border-gray-200 sm:mt-0 sm:border-none{% endif %}">
         <h4 class="mb-0 font-medium">
           <a href="{{ url(post) }}">{{ post.title }}</a>
@@ -67,17 +56,19 @@
           <time class="sm:after:content-['•'] sm:after:ml-2" dateTime="{{ post.date|date('Y-m-d') }}">{{ post.date|format_date('medium') }}</time>
           <span class="text-sm text-gray-600 sm:after:content-['•'] sm:after:ml-2">{{ readtime(post.content) }} min</span>
           <span class="inline-flex items-center gap-x-1.5 rounded-full px-2 py-1 text-xs font-medium text-gray-900 ring-1 ring-inset ring-gray-200">
-            <svg class="h-1.5 w-1.5 fill-red-500" viewBox="0 0 6 6" aria-hidden="true">
+            <svg class="h-1.5 w-1.5 fill-teal-500" viewBox="0 0 6 6" aria-hidden="true">
               <circle cx="3" cy="3" r="3" />
             </svg>
+            {%- if post.tags is defined ~%}
             {{ post.tags|first }}
+            {%- endif ~%}
           </span>
         </div>
       </li>
-      {% endfor %}
+      {%- endfor ~%}
     </ul>
   </article>
-    {% endfor %}
+    {%- endfor ~%}
 </section>
-  {% endfor %}
+  {%- endfor ~%}
 {% endblock %}

@@ -1243,9 +1243,9 @@ h4 {
   border-color: rgb(209 213 219 / var(--tw-border-opacity));
 }
 
-.border-l-red-500 {
+.border-l-teal-500 {
   --tw-border-opacity: 1;
-  border-left-color: rgb(239 68 68 / var(--tw-border-opacity));
+  border-left-color: rgb(20 184 166 / var(--tw-border-opacity));
 }
 
 .bg-black {
@@ -1280,8 +1280,8 @@ h4 {
   fill: #6b7280;
 }
 
-.fill-red-500 {
-  fill: #ef4444;
+.fill-teal-500 {
+  fill: #14b8a6;
 }
 
 .stroke-gray-500 {
