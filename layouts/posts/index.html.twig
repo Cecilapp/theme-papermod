@@ -34,7 +34,7 @@
   {%- for month, posts in months ~%}
   <article class="grid grid-rows gap-y-4 items-center mt-10 sm:ml-10 md:grid-cols-[20%_80%] md:gap-y-0 md:ml-0">
     <h3 id="{{ year ~ '-' ~ month }}" class="mb-0 self-baseline flex flex-row items-center gap-x-2">
-      <span>{{ (year ~ '-' ~ month ~ '-01')|date('F') }}</span>
+      <span>{{ (year ~ '-' ~ month ~ '-01')|format_date(pattern: 'MMMM') }}</span>
       <a href="#{{ year ~ '-' ~ month }}" class="self-start">
         <svg class="size-3 hover:fill-teal-500 hover:border-none" fill="#000000" width="800px" height="800px" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
           <path d="M0,0H48V48H0Z" transform="translate(0 0)" style="fill: none"/>
