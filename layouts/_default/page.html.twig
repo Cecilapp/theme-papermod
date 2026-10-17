@@ -7,7 +7,10 @@
     {{- include('partials/metatags.html.twig') ~}}
     {%- block head_css ~%}
     {{- asset('styles/main.css')|html ~}}
-    {{- asset('styles/a11y-dark.min.css')|html(options={preload: true}) ~}}
+    {#- syntax highlighting theme, only for pages with highlighted code ~#}
+    {%- if 'hljs-' in page.content|default('') ~%}
+    {{- asset('styles/a11y-dark.min.css')|html ~}}
+    {%- endif ~%}
     {%- endblock head_css ~%}
     {{- include('partials/pwa.html.twig', {site}, with_context = false, ignore_missing = true) ~}}
   </head>
