@@ -1,12 +1,15 @@
-{% extends '_default/list.html.twig' %}
+{# all the section's posts (the archive ignores pagination) #}
+{% set pages = page.pages|default(site.pages.showable|filter_by('section', page.section))|sort_by_date %}
 
-{% from 'macros/posts.twig' import post_card  %}
+{% extends ['page.html.twig', '_default/page.html.twig'] %}
+
+{% from 'macros/posts.twig' import meta %}
 
 {%- block content ~%}
 <section class="mb-20 prose">
   <h1 class="flex gap-x-2">
-    <span>{{ 'Archives'|trans }}</span>
-    <a href="atom.xml">
+    <span>{{ page.title|default('Archives'|trans) }}</span>
+    <a href="{{ url(page, {format: 'atom'}) }}" class="no-overlay" title="{{ 'Atom feed'|trans }}">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
         <path stroke-linecap="round" stroke-linejoin="round" d="M12.75 19.5v-.75a7.5 7.5 0 0 0-7.5-7.5H4.5m0-6.75h.75c7.87 0 14.25 6.38 14.25 14.25v.75M6 18.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
       </svg>
@@ -20,8 +23,8 @@
 <section class="flex flex-col {% if loop.last == false %}mb-12 pb-8 border-b border-gray-200{% endif %}">
   <h2 id="{{ year }}" class="flex flex-row items-center gap-x-2">
     <span>{{ year }}</span>
-    <a href="#{{ year }}" class="self-start">
-      <svg class="size-4 hover:fill-teal-500 hover:border-none" fill="#000000" width="800px" height="800px" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+    <a href="#{{ year }}" class="self-start no-overlay">
+      <svg class="size-4 hover:fill-teal-500 hover:border-none" fill="currentColor" aria-hidden="true" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
         <path d="M0,0H48V48H0Z" transform="translate(0 0)" style="fill: none"/>
         <g>
           <path d="M16,36h4V32H16a8,8,0,0,1,0-16h4V12H16a12,12,0,0,0,0,24Z" transform="translate(0 0)"/>
@@ -32,11 +35,11 @@
     </a>
   </h2>
   {%- for month, posts in months ~%}
-  <article class="grid grid-rows gap-y-4 items-center mt-10 sm:ml-10 md:grid-cols-[20%_80%] md:gap-y-0 md:ml-0">
+  <article class="grid gap-y-4 items-center mt-10 sm:ml-10 md:grid-cols-[20%_80%] md:gap-y-0 md:ml-0">
     <h3 id="{{ year ~ '-' ~ month }}" class="mb-0 self-baseline flex flex-row items-center gap-x-2">
-      <span>{{ (year ~ '-' ~ month ~ '-01')|date('F') }}</span>
-      <a href="#{{ year ~ '-' ~ month }}" class="self-start">
-        <svg class="size-3 hover:fill-teal-500 hover:border-none" fill="#000000" width="800px" height="800px" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+      <span>{{ (year ~ '-' ~ month ~ '-01')|format_date(pattern: 'LLLL')|capitalize }}</span>
+      <a href="#{{ year ~ '-' ~ month }}" class="self-start no-overlay">
+        <svg class="size-3 hover:fill-teal-500 hover:border-none" fill="currentColor" aria-hidden="true" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
           <path d="M0,0H48V48H0Z" transform="translate(0 0)" style="fill: none"/>
           <g>
             <path d="M16,36h4V32H16a8,8,0,0,1,0-16h4V12H16a12,12,0,0,0,0,24Z" transform="translate(0 0)"/>
@@ -50,19 +53,10 @@
       {%- for post in posts ~%}
       <li class="flex flex-col gap-y-2 {% if loop.first == false %}mt-4 border-t border-gray-200 sm:mt-0 sm:border-none{% endif %}">
         <h4 class="mb-0 font-medium">
-          <a href="{{ url(post) }}">{{ post.title }}</a>
+          <a href="{{ url(post) }}" class="no-overlay">{{ post.title }}</a>
         </h4>
-        <div class="flex flex-col gap-y-2 items-start sm:flex-row sm:gap-x-2 sm:gap-y-0 sm:items-center text-sm text-gray-600">
-          <time class="sm:after:content-['•'] sm:after:ml-2" dateTime="{{ post.date|date('Y-m-d') }}">{{ post.date|format_date('medium') }}</time>
-          <span class="text-sm text-gray-600 sm:after:content-['•'] sm:after:ml-2">{{ readtime(post.content) }} min</span>
-          <span class="inline-flex items-center gap-x-1.5 rounded-full px-2 py-1 text-xs font-medium text-gray-900 ring-1 ring-inset ring-gray-200">
-            <svg class="h-1.5 w-1.5 fill-teal-500" viewBox="0 0 6 6" aria-hidden="true">
-              <circle cx="3" cy="3" r="3" />
-            </svg>
-            {%- if post.tags is defined ~%}
-            {{ post.tags|first }}
-            {%- endif ~%}
-          </span>
+        <div class="flex flex-wrap gap-x-2 gap-y-1 items-center text-sm text-gray-600">
+          {{ meta(post) }}
         </div>
       </li>
       {%- endfor ~%}

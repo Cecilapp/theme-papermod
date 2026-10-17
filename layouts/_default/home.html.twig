@@ -1,0 +1,38 @@
+{% extends ['page.html.twig', '_default/page.html.twig'] %}
+
+{% from 'macros/posts.twig' import card as post_card %}
+
+{% set section = site.papermod.posts.section|default('posts') %}
+{% set limit = site.papermod.posts.home|default(5) %}
+{% set posts = site.pages.showable|filter_by('section', section)|sort_by_date(descTitle=true) %}
+
+{% block content %}
+<section class="prose">
+  <h2 class="mb-4">{{ page.title }}</h2>
+  <div class="text-lg text-gray-700 mb-4">
+    {{ page.content }}
+  </div>
+  {%- if site.data.links|default([])|length > 0 ~%}
+  <div class="flex justify-start items-center gap-x-4 mt-8 text-gray-700">
+    {%- for link in site.data.links ~%}
+    <a href="{{ url(link.href) }}" title="{{ link.title|trans }}" class="relative z-20">{{ asset(link.picto)|html(attributes={class: 'size-8 my-0', alt: link.alt|default(link.title)}) }}</a>
+    {%- endfor ~%}
+  </div>
+  {%- endif ~%}
+</section>
+{%- if posts|length > 0 ~%}
+<section class="mt-24 flex flex-col space-y-6">
+  <h2 class="text-2xl border-b border-gray-200">{% trans %}Latest posts{% endtrans %}</h2>
+  <div class="flex flex-col space-y-4">
+    {%- for post in posts|slice(0, limit) ~%}
+    <a href="{{ url(post) }}" class="no-overlay">{{ post_card(post) }}</a>
+    {%- endfor ~%}
+  </div>
+</section>
+{%- if posts|length > limit ~%}
+<div class="mt-6 flex justify-end">
+  <a class="no-overlay bg-black text-white py-2 px-6 rounded-full" href="{{ url(section) }}">{% trans %}See older posts{% endtrans %}</a>
+</div>
+{%- endif ~%}
+{%- endif ~%}
+{% endblock %}
