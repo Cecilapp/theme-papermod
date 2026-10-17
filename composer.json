@@ -1,14 +1,29 @@
 {
   "name": "cecil/theme-papermod",
   "type": "cecil-theme",
-  "description": "Cecil theme PaperMod",
-  "keywords": ["Cecil", "theme"],
+  "description": "Cecil PaperMod theme",
+  "keywords": [
+    "Cecil",
+    "theme",
+    "papermod",
+    "blog"
+  ],
   "license": "MIT",
   "require": {
-    "cecil/theme-installer": "^1.0||^2.0"
+    "cecil/theme-installer": "^1.4||^2.0"
+  },
+  "require-dev": {
+    "aligny/tailwind-builder": "^1.2"
+  },
+  "scripts": {
+    "css:build": "tailwind-builder assets/tailwind.css --output=assets/styles/main.css --minify",
+    "css:watch": "tailwind-builder assets/tailwind.css --output=assets/styles/main.css --watch"
   },
   "extra": {
-    "name": "papermod"
+    "name": "papermod",
+    "branch-alias": {
+      "dev-main": "1.x-dev"
+    }
   },
   "minimum-stability": "dev",
   "prefer-stable": true,

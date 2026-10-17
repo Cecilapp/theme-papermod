@@ -1,0 +1,12 @@
+{% extends ['page.html.twig', '_default/page.html.twig'] %}
+
+{% block content %}
+<section class="prose">
+  <h1>{{ page.title }}</h1>
+  <ul class="not-prose flex flex-wrap gap-3 list-none p-0">
+    {%- for term in page.terms ~%}
+    <li><a href="{{ url(term.id, {language: site.language}) }}" class="no-overlay rounded-full px-3 py-1 ring-1 ring-inset ring-gray-200 dark:ring-zinc-700 hover:text-teal-500">#{{ term.name }} <span class="text-gray-400 dark:text-zinc-500">({{ term|length }})</span></a></li>
+    {%- endfor ~%}
+  </ul>
+</section>
+{% endblock %}

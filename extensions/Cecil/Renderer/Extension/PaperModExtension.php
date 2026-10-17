@@ -3,9 +3,7 @@
 namespace Cecil\Renderer\Extension;
 
 use Cecil\Builder;
-use Cecil\Collection\Page\Collection as PagesCollection;
 use Cecil\Collection\Page\Page;
-use Cecil\Config;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
@@ -14,24 +12,12 @@ class PaperModExtension extends AbstractExtension
     /** @var Builder */
     protected $builder;
 
-    /** @var Config */
-    protected $config;
-
     public function __construct(Builder $builder)
     {
         $this->builder = $builder;
-        $this->config = $builder->getConfig();
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getName(): string
-    {
-        return 'CoreExtension';
-    }
-
-    public function getFilters()
+    public function getFilters(): array
     {
         return [
             new TwigFilter('sort_by', [$this, 'sortBy']),
@@ -39,24 +25,27 @@ class PaperModExtension extends AbstractExtension
     }
 
     /**
-     * @return array<string, Page>|array<string, Page>|array<string, array<string, Page>>
+     * Groups pages by year and/or month (keys are kept in pages order).
+     *
+     * @return iterable<Page>|array<string, array<Page>>|array<string, array<string, array<Page>>>
      */
-    public function sortBy(PagesCollection $pages, array $options = []): \Traversable
+    public function sortBy(iterable $pages, array $options = []): iterable
     {
         $byMonths = $options['months'] ?? true;
         $byYears = $options['years'] ?? true;
-
-        $sorted = new \ArrayIterator();
 
         if ($byMonths === false && $byYears === false) {
             return $pages;
         }
 
-        /**
-         * @var Page $page
-         */
+        $sorted = [];
+
+        /** @var Page $page */
         foreach ($pages as $page) {
-            $date = $page->getVariables()['date'];
+            $date = $page->getVariable('date');
+            if (!$date instanceof \DateTimeInterface) {
+                continue;
+            }
             $month = $date->format('m');
             $year = $date->format('Y');
 

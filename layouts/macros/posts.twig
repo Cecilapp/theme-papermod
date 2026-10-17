@@ -1,24 +1,26 @@
+{% macro meta(post) %}
+  <time class="after:content-['•'] after:ml-2" datetime="{{ post.date|date('c') }}">{{ post.date|format_date('medium') }}</time>
+  <span{% if post.tags|default([])|length > 0 %} class="after:content-['•'] after:ml-2"{% endif %}>{% trans with {'%min%': readtime(post.content)} %}%min% min read{% endtrans %}</span>
+  {%- if post.tags|default([])|length > 0 ~%}
+  <span class="inline-flex items-center gap-x-1.5 rounded-full px-2 py-1 text-xs font-medium text-gray-900 dark:text-zinc-100 ring-1 ring-inset ring-gray-200 dark:ring-zinc-700">
+    <svg class="h-1.5 w-1.5 fill-teal-500" viewBox="0 0 6 6" aria-hidden="true">
+      <circle cx="3" cy="3" r="3" />
+    </svg>
+    {{ post.tags|first }}
+  </span>
+  {%- endif ~%}
+{% endmacro %}
+
 {% macro card(post) %}
-<article class="flex flex-col gap-y-3 auto-rows-min p-4 bg-white/80 border border-gray-300 border-l-teal-500 border-l-2 rounded-md">
+<article class="flex flex-col gap-y-3 auto-rows-min p-4 bg-white/80 dark:bg-zinc-800/80 border border-gray-300 dark:border-zinc-700 border-l-teal-500 dark:border-l-teal-500 border-l-2 rounded-md">
   <header>
-    <h3 class="text-2xl font-semibold underline underline-offset-4">{{ post.title|e }}</h3>
+    <h3 class="text-2xl font-semibold underline underline-offset-4 mb-0">{{ post.title|e }}</h3>
   </header>
-  <section>
-    {{ post.content|excerpt_html }}
+  <section class="text-gray-700 dark:text-zinc-300">
+    {{ post.description|default(post.content|excerpt_html|striptags|excerpt(200)) }}
   </section>
-  <footer class="flex justify-start items-center gap-x-2 text-sm text-gray-600 ">
-    <time class="after:content-['•'] after:ml-2" dateTime="{{ post.date|date('Y-m-d') }}">
-      {{ post.date|format_date('medium') }}
-    </time>
-    <span class="after:content-['•'] after:ml-2">{{ readtime(post.content) }} min</span>
-    <span class="inline-flex items-center gap-x-1.5 rounded-full px-2 py-1 text-xs font-medium text-gray-900 ring-1 ring-inset ring-gray-200">
-      <svg class="h-1.5 w-1.5 fill-teal-500" viewBox="0 0 6 6" aria-hidden="true">
-        <circle cx="3" cy="3" r="3" />
-      </svg>
-      {%- if post.tags is defined ~%}
-      {{ post.tags|first }}
-      {%- endif ~%}
-    </span>
+  <footer class="flex flex-wrap justify-start items-center gap-x-2 text-sm text-gray-600 dark:text-zinc-400">
+    {{ _self.meta(post) }}
   </footer>
 </article>
 {% endmacro %}
