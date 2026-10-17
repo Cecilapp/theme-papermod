@@ -1,0 +1,6 @@
+- title: GitHub
+  href: https://github.com/Cecilapp/theme-papermod
+  picto: images/svg/github.svg
+- title: Atom feed
+  href: posts/atom.xml
+  picto: images/svg/feed.svg
