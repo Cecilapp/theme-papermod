@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta name="color-scheme" content="light dark">
     {{- include('partials/metatags.html.twig') ~}}
     {%- block head_css ~%}
     {{- asset('styles/main.css')|html ~}}
@@ -10,20 +11,20 @@
     {%- endblock head_css ~%}
     {{- include('partials/pwa.html.twig', {site}, with_context = false, ignore_missing = true) ~}}
   </head>
-  <body class="relative flex flex-col min-h-screen bg-white text-gray-800 p-4">
+  <body class="relative flex flex-col min-h-screen bg-white dark:bg-zinc-900 text-gray-800 dark:text-zinc-200 p-4">
     {%- block header ~%}
     <header class="container max-w-7xl mx-auto py-4 flex justify-between items-center">
       <nav class="flex items-center space-x-4">
         <a aria-label="{{ 'Home'|trans }}" class="text-2xl font-bold flex items-center gap-x-2 pointer-events-auto" href="{{ url(site.home) }}">
           {%- if site.papermod.avatar|default(false) ~%}
-          <span class="h-10 w-10 rounded-full bg-white/90 p-0.5 shadow-lg shadow-gray-800/5 ring-1 ring-gray-900/5 backdrop-blur-sm">
-            {{ asset(site.papermod.avatar)|html(attributes={alt: 'Avatar'|trans, class: 'rounded-full bg-gray-100 object-cover h-9 w-9 text-transparent'}, options={responsive: true, formats: ['webp']}) }}
+          <span class="h-10 w-10 rounded-full bg-white/90 dark:bg-zinc-800/90 p-0.5 shadow-lg shadow-gray-800/5 ring-1 ring-gray-900/5 dark:ring-white/10 backdrop-blur-sm">
+            {{ asset(site.papermod.avatar)|html(attributes={alt: 'Avatar'|trans, class: 'rounded-full bg-gray-100 dark:bg-zinc-800 object-cover h-9 w-9 text-transparent'}, options={responsive: true, formats: ['webp']}) }}
           </span>
           {%- endif ~%}
           <span class="transition hover:text-teal-500">{{ site.title }}</span>
         </a>
       </nav>
-      <nav class="hidden sm:block space-x-4 text-gray-600">
+      <nav class="hidden sm:block space-x-4 text-gray-600 dark:text-zinc-400">
         {%- for entry in site.menus.main|default([])|sort_by_weight ~%}
         <a href="{{ url(entry.url) }}" class="transition hover:text-teal-500{% if url(entry.url) == url(page) %} text-teal-500{% endif %}">{{ entry.name }}</a>
         {%- endfor ~%}
@@ -39,7 +40,7 @@
       {%- endblock content ~%}
     </main>
     {%- block footer ~%}
-    <footer class="container max-w-7xl mx-auto mt-16 py-4 border-t border-gray-200 text-gray-600">
+    <footer class="container max-w-7xl mx-auto mt-16 py-4 border-t border-gray-200 dark:border-zinc-700 text-gray-600 dark:text-zinc-400">
       <div class="flex flex-wrap-reverse justify-between items-center gap-4 sm:grid sm:grid-cols-2">
         <p class="flex flex-wrap items-center justify-start gap-x-8">
           {%- for entry in site.menus.main|default([])|sort_by_weight ~%}

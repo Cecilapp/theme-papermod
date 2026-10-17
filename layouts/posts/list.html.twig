@@ -15,7 +15,7 @@
       </svg>
     </a>
   </h1>
-  <div class="prose text-lg text-gray-700 mb-4">
+  <div class="prose text-lg text-gray-700 dark:text-zinc-300 mb-4">
     {{ page.content }}
   </div>
 </section>
@@ -51,11 +51,11 @@
     </h3>
     <ul class="flex flex-col gap-y-4 sm:ml-10 md:ml-0 {% if loop.last == false %}pb-4 border-b border-gray-200{% endif %}">
       {%- for post in posts ~%}
-      <li class="flex flex-col gap-y-2 {% if loop.first == false %}mt-4 border-t border-gray-200 sm:mt-0 sm:border-none{% endif %}">
+      <li class="flex flex-col gap-y-2 {% if loop.first == false %}mt-4 border-t border-gray-200 dark:border-zinc-700 sm:mt-0 sm:border-none{% endif %}">
         <h4 class="mb-0 font-medium">
           <a href="{{ url(post) }}" class="no-overlay">{{ post.title }}</a>
         </h4>
-        <div class="flex flex-wrap gap-x-2 gap-y-1 items-center text-sm text-gray-600">
+        <div class="flex flex-wrap gap-x-2 gap-y-1 items-center text-sm text-gray-600 dark:text-zinc-400">
           {{ meta(post) }}
         </div>
       </li>
