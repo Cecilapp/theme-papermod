@@ -1,15 +1,21 @@
-#avatar: images/avatar-white.jpg
-posts:
-  section: posts
-analytics: false
-pagination:
-  enabled: false
+# Cecil config required by the theme
+taxonomies:
+  tags: tag
 pages:
-  highlight:
-    enabled: true
-paths:
-  - section: posts
-    path: :section/:year/:month/:day-:slug
+  paths:
+    - section: posts
+      path: :section/:year/:month/:day-:slug
 layouts:
   extensions:
     PaperModExtension: Cecil\Renderer\Extension\PaperModExtension
+# Theme options
+papermod:
+  posts:
+    section: posts # section containing the blog posts
+    home: 5        # number of posts displayed on the homepage
+  avatar: ''       # e.g.: images/avatar.jpg
+  about:
+    image: ''      # e.g.: images/about.jpg
+  licence: by-nc-sa # Creative Commons licence of the content (empty to hide)
+  overlay: true    # paper texture overlay
+  analytics: false # enables partials/analytics.html.twig
